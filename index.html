@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six Month Date Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005a9e;
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #eef6ff;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #004578;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Six Month Date Calculator</h1>
+
+        <input type="date" id="startDate">
+
+        <button onclick="calculateDate()">Calculate</button>
+
+        <div id="result" class="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        // Set default date to today
+        const today = new Date();
+        document.getElementById('startDate').value = today.toISOString().split('T')[0];
+
+        function calculateDate() {
+            const input = document.getElementById('startDate').value;
+
+            if (!input) {
+                alert('Please select a date.');
+                return;
+            }
+
+            const date = new Date(input);
+            const newDate = new Date(date);
+
+            // Add 6 calendar months
+            newDate.setMonth(newDate.getMonth() + 6);
+
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML =
+                `Six months after <strong>${date.toLocaleDateString('en-GB')}</strong> is:<br><br>` +
+                `${newDate.toLocaleDateString('en-GB', options)}`;
+        }
+    </script>
+</body>
+</html>
